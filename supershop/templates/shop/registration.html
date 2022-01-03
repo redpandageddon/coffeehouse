@@ -1,0 +1,26 @@
+{% extends 'login__signin__base.html' %}
+
+{% block title %}
+    Магазинчик | Регистрация
+{% endblock title %}
+
+{% block content %}
+
+<div class="reg-container">
+    <div class="reg-body">
+        <div class="header-text">
+            <span class="reg-text">Зарегистрировать аккаунт</span>
+        </div>
+        <hr>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+        <div class="form-area enter"> 
+            <span class="footer-text">Уже зарегистрирован?<a href = "{% url 'shop:login' %}" class="conditions cabinet">Войти</a></span>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

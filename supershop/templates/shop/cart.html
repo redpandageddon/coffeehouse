@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shop/cart_and_checkout.css' %}">
+{% endblock style %}
+
+{% block title %}
+    Магазинчик | Корзина
+{% endblock title %}
+
+
+{% block content %}
+    <div class="content-container">
+        <div class="basket-container">
+            <div class="basket-left--side">
+                <div class="basket-text">
+                    <span class="text">Ваша корзина {% if not cart.products.count %} пуста {% endif %}</span>
+                </div>
+                <div>
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+
+                {% if cart.products.count %}
+                <div class="basket-items__container">
+                    <ul class="basket-list">
+                        {% for item in cart.products.all %}
+                        <li class="basket-list__item">
+                            <div class="item-container">
+                                <div class="item-image__container">
+                                    <img src="{{ item.product.image.url }}" alt="item" class = "item-image">
+                                    <div class="item-info__container">
+                                        <div class="item-info">
+                                            <span class="item-name">{{ item.product.name }}</span>
+                                            <span class="item-count--text">Количество:
+                                                <span class="item-count">{{ item.amount }}</span>
+                                            </span>
+                                            <div class="count__container">
+                                                <!-- <button class="subtract">-</button>
+                                                <span class="current-count--value">1</span>
+                                                <button class="add">+</button> -->
+                                            </div>
+                                        </div>
+                                        <form action="{% url 'shop:change_amount' ct_model=item.product.get_model_name slug=item.product.slug %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="number" name="amount" min="1" value="{{ item.amount }}">
+                                            <br>
+                                            <input type="submit" value="Изменить количество">
+                                        </form>
+                                        <div class="item-price__container">
+                                            <span class="product-price">{{ item.product.price }}</span>
+                                            <span class="price-currency">руб</span>
+                                            <div class="delete-item">
+                                                <a class = "trash" href="{% url 'shop:remove_from_cart' ct_model=item.product.get_model_name slug=item.product.slug %}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="total-container">
+                <div class="total-info">
+                    <span class="total-text">
+                        Итого
+                    </span>
+                </div>
+                <div class="total-amount">
+                    <span class="total-item__amount">
+                        Товары,
+                        <span class="total-amount__value">
+                            {{ cart.product_amount }}
+                        </span>
+                        шт.
+                    </span>
+                    <div class="container-total--item">
+                        <span class="total-item__value">
+                            {{ cart.final_price }}
+                        </span>
+                        <span class="item-currency">
+                            руб
+                        </span>
+                    </div>
+                </div>
+                <div class="btn-basket">
+                    <a href = "{% url 'shop:checkout' %}" class="btn-add__basket">Перейти к оформлению</a>
+                </div>
+                <div class="policy">
+                    <span class="policy-txt"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock content %}

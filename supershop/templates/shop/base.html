@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'shop/style.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/Default.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="icon" href="{% static 'shop/Avocado.svg' %}" type = "image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chela+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Peddana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>{% block title %}Главная{% endblock %}</title>
+    {% block style %}
+    {% endblock style %}
+    <script src="{% static 'shop/index.js' %}" defer></script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="shop-menu__container">
+                <img src="{% static 'shop/burger.svg' %}" alt="shop" class = "logo" id="logo">
+            </div>
+            <div class="shop-name__container">
+                <div class="brand">
+                    <a href="{% url 'shop:base' %}" class = "self">
+                        <img src="{% static 'shop/Avocado.png' %}" class = "brand-icon">
+                        <span class="brand-name">AVOCADOS</span>
+                    </a>
+                </div>
+            </div>
+            <div class="user-interaction">
+
+            {% if not request.user.is_authenticated %}
+
+                    <a href="{% url 'shop:login' %}">
+                        <div class = "user">
+                            <img src="{% static 'shop/user.svg' %}" alt="user">
+                            <span class="login">Войти</span>
+                        </div>
+                    </a>
+
+            {% else %}
+
+                <a href="{% url 'shop:logout' %}">
+                    <div class = "user">
+                        <img src="{% static 'shop/user.svg' %}" alt="user">
+                        <span class="login">Выйти</span>
+                    </div>
+                </a>
+
+            {% endif %}
+                <a href="{% url 'shop:cart' %}">
+                    <div class="bag-container">
+                        <img src="{% static 'shop/mobile-bag.svg' %}" alt="bag">
+                        <span class="bag">Корзина<span>(<span class="cart__items__amount">{{ cart.products.count }}</span>)</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="content-container">
+        <div class="nav-container">
+            <ul class="catalog-list" id='navbar'>
+                {% for category in categories %}
+
+                    <a style="text-decoration: none; color: whitesmoke;" href="{{ category.url }}">
+                        <li class="catalog-list__items">{{ category.name }} (<span class="category-value">{{ category.count }}</span>)</li>
+                    </a>
+
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% block content %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% for product in latest_products %}
+            <div class="product-card__container">
+                <div class="product-card__top">
+                    <div class="product-image__container">
+                        <div class="product-image">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.image.url }}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-about__container">
+                        <div class="product-inf__container">
+                            <ul class="product-list">
+                                <li class="product-list__item"><span class="product-name">{{ product.name }}</span></li>
+                                <li class="product-list__item price-col">
+                                <div class="price-container">
+                                    <span class="product-price">{{ product.price }}</span>
+                                    <div class="product-price__sec">
+                                        <span class="product-price__over">00</span>
+                                        <span class="price-currency">руб</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                            </ul>
+                            <div class="btn-container">
+                                <div class="btn-bag">
+                                    {% if not request.user.is_authenticated %}
+                                    <a href="{% url 'shop:login' %}">
+                                        <span class="btn-add__bag">Добавить в корзину</span>
+                                    </a>
+                                    {% else %}
+                                    <a href="{% url 'shop:add_to_cart' ct_model=product.get_model_name slug=product.slug %}">
+                                        <span class="btn-add__bag">Добавить в корзину</span>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% endblock content %}
+    </div>
+
+    {% block scripts %}
+
+    {% endblock scripts %}
+</body>
+</html>

@@ -1,0 +1,192 @@
+tr,th, label, .helptext {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+}
+
+input {
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    padding: 9px 6px 9px 20px;
+    font-size: 14px !important;
+    margin-top: 20px;
+    position: relative;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    user-select: none;
+    font-family: Montserrat, sans-serif;
+    outline:none;
+    cursor: default;
+}
+
+.reg-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    user-select: none;
+    font-family: Montserrat, sans-serif;
+    outline:none;
+    cursor: default;
+}
+
+.header-text {
+    width: 100%;
+}
+
+.auth-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.auth-text {
+    font-size: 26px;
+    font-weight: 600;
+    width: 100%;
+    letter-spacing: -1px;
+    line-height: 36px;
+    display: flex;
+    justify-content: center;
+    color: black;
+    width: 243px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.reg-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.reg-text {
+    font-size: 26px;
+    font-weight: 600;
+    width: 100%;
+    letter-spacing: -1px;
+    line-height: 36px;
+    display: flex;
+    justify-content: center;
+    color: black;
+    width: 243px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#id_username {
+    margin-top: 30px;
+}
+
+#id_email {
+    margin-bottom: 20px;
+}
+
+#id_password {
+    margin-top: 0;
+    width: 100%;
+}
+
+#id_confirm_password {
+    width: 100%;
+}
+
+.password-area {
+    position: relative;
+}
+
+form button {
+    border-radius: 3px;
+    margin-top: 50px;
+    width: 100%;
+    border-color: #000;
+    background-color: #fff;
+    color: #000;
+    padding: 7px 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+form button:hover {
+    background-color: #000; 
+    color: #fff;
+}
+
+.footer {
+    width: 330px;
+    text-align: center;
+    letter-spacing: 0.2px;
+    margin-top: 50px;
+}
+
+.politics-text {
+    font-size: 13px;
+    color: rgb(117,117,117);
+    display: flex;
+    flex-direction: column;
+}
+
+.conditions {
+    text-decoration: underline;
+}
+
+.enter {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 13px;
+    color: rgb(117,117,117);
+}
+
+.cabinet {
+    cursor: pointer;
+    color: rgb(117,117,117);
+}
+
+.show-password {
+    position: absolute;
+    right: 18px;
+    top: 7px;
+    cursor: pointer;
+    color: #2A313B;
+    font-family: 'FontAwesome';
+}
+
+.show-confirm__password {
+    position: absolute;
+    right: 18px;
+    top: 27px;
+    cursor: pointer;
+    color: #2A313B;
+    font-family: 'FontAwesome';
+}
+
+.wrong-date {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.wrong-text {
+    color: red;
+    font-size: 14px;
+    display: none;
+}

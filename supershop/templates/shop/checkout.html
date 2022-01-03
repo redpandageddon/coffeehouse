@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shop/cart_and_checkout.css' %}">
+{% endblock style %}
+
+{% block title %}
+    Магазинчик | Оформление заказа
+{% endblock title %}
+
+{% block content %}
+
+<div class="basket-container">
+    <div class="cont">
+        <div class="basket-left--side">
+            <div class="basket-text">
+                <span class="text">Ваш заказ</span>
+            </div>
+            <div>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="basket-items__container">
+                <ul class="basket-list">
+
+                    {% for item in cart.products.all %}
+                    <li class="basket-list__item">
+                        <div class="item-container">
+                            <div class="item-image__container">
+                                <img src="{{ item.product.image.url }}" alt="item" class = "item-image">
+                                <div class="item-info__container">
+                                    <div class="item-info">
+                                        <span class="item-name">{{ item.product.name }}</span>
+                                        <span class="item-count--text">Количество:
+                                            <span class="item-count">{{ item.amount }}</span>
+                                        </span>
+                                        <div class="count__container">
+                                        </div>
+                                    </div>
+                                    <div class="item-price__container">
+                                        <span class="product-price">{{ item.product.price }}</span>
+                                        <span class="price-currency">руб</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+        <div class="basket-left--side basket-order">
+            <div class="basket-text order-text">
+                <div class="order-top">
+                    <div class="order-left">
+                        <span class="text">Форма заказа</span>
+                    </div>
+                    <div class="order-right">
+                    <span class="text">Итого</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-center">
+
+                <form action="{% url 'shop:make_order' %}" method="POST">
+
+                    {% csrf_token %}
+                    {{ form }}
+
+                    <div class="btn-con">
+                        <input class = "btn-add__basket order-btn" type="submit" value="Оформить заказ">
+                    </div> 
+                
+                </form>
+
+                <div class="total-amount total-order">
+                    <span class="total-item__amount ord-total">
+                        Товары,
+                        <span class="total-amount__value">
+                            {{ cart.product_amount }}
+                        </span>
+                        шт.
+                    </span>
+                    <div class="container-total--item">
+                        <span class="total-item__value">
+                            {{ cart.final_price }}
+                        </span>
+                        <span class="item-currency">
+                            руб
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+    {%  load static %}
+    <script src="{% static 'shop/checkout.js' %}" defer></script>
+{% endblock scripts %}

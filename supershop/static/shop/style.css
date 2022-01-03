@@ -1,0 +1,278 @@
+*{
+    font-family: 'Montserrat';
+}
+
+header {
+    background: #000;
+}
+
+.header-container {
+    display: flex;
+    width: 100%;
+    height: 88px;
+}
+
+.shop-menu__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 20px;
+    height: 20px;
+    margin-left: 160px;
+    cursor: pointer;
+}
+
+.shop-name__container {
+    width: 100%;
+}
+
+.brand {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.self {
+    display: flex;
+    text-decoration: none;
+}
+
+.brand-icon {
+    width: 50px;
+    height: 50px;
+    max-width: 100%;
+    height: auto;
+}
+
+.brand-name {
+    color: #fff;
+    font-family: 'Chela One';
+    font-size: 37px;
+}
+
+.user-interaction {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 32.3px;
+    cursor: pointer;
+}
+
+.user img {
+    width: 21px;
+    height: 20px;
+}
+
+.login, .bag{
+    color: #fff;
+    font-family: 'Chela One';
+    font-size: 13.5px;
+    margin-top: 7.77px;
+}
+
+.bag-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.nav-container {
+    width: 13%;
+    height: 100%;
+}
+
+.catalog-list {
+    display: none;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    top: -500px;
+    border: 4px solid black;
+    border-top: none;
+    padding-top: 1px !important;
+    background: #000;
+    color: #fff;
+    margin-left: 40px !important;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.catalog-list__items:first-child {
+    padding-top: 20px;
+}   
+
+.catalog-list__items {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.catalog-list__items:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.category-value {
+    font-size: 13px;
+}
+
+.content-container {
+    height: 100%;
+}
+
+.product-card__container {
+    display: flex;
+    width: 900px;
+    max-width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    margin: 100px auto 20px auto;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    width: 252px;
+    height: 440px;
+    max-width: 100%;   
+    margin: 0 30px 30px 0; 
+}
+
+.product-image__container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.product-image {
+    object-fit: cover;
+    border-radius: 7px;
+    width: 252px;
+    max-width: 100%;
+    height: auto;
+    height: 252px;
+    max-height: 100%;
+    cursor: pointer;
+}
+
+.product-image__save::before {
+    content: '';
+    width: 35px;
+    height: 35px;
+    background: #000;
+    border-radius: 50px;
+    font-family: 'FontAwesome';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    display: flex;
+    justify-content: center;
+    margin-top:5px;
+} 
+
+.product-image__save::after {
+    content: url('./heart_white.svg');
+    width: 35px;
+    height: 35px;
+    font-family: 'FontAwesome';
+    position: absolute;
+    top: -5px;
+    right: -21px;
+}
+
+.product-image__save:hover::after {
+    content: url('./heart_red.svg');
+}
+
+.product-about__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 15px 20px 0;
+}
+
+.product-inf__container {  
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.product-list {
+    font-weight: 500;
+}
+
+.product-list__item {
+    margin-bottom: 10px;
+}
+
+.product-list__item:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    max-width: 100%;
+    text-overflow: unset;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 28px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+}
+
+.product-list__item:last-child {
+    margin-bottom: 0;
+}
+
+.price-container {
+    line-height: .8;
+}
+
+.product-price {
+    font-size: 30px;
+    font-family: 'Peddana', serif;
+}
+
+.price-currency {
+    font-size: 19px;
+    line-height: 22px;
+}
+
+.btn-container {
+    height: 100%;
+    padding: 0 0 10px 0;
+}
+
+.btn-bag {
+    margin-top: 37px;
+}
+
+.btn-add__bag {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.1s ease;
+    letter-spacing: -0.5px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #000;
+}
+
+.btn-add__bag:hover {
+    border: 2px solid #228B22;
+    color: #228B22;  
+}

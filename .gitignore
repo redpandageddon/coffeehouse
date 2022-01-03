@@ -1,2 +1,15 @@
+*.png
+*.jpg
+*.jpeg
 *.pyc
 *.txt
+.idea
+*.sqlite3
+media
+*.log
+*.pot
+__pycache__
+grappelli
+django_extensions
+admin
+*.svg
