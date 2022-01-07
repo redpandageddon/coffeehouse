@@ -29,7 +29,7 @@ class Category(models.Model):
 
     name = models.CharField('Название категории', max_length = 100)
     slug = models.SlugField(unique = True)
-    description = models.TextField('Описание')
+    description = models.TextField('Описание', blank=True, null=True)
     objects = CategoryManager()
 
     def __str__(self):
@@ -44,35 +44,6 @@ class Category(models.Model):
         db_table = 'product_categories'
 
 
-# Модель для производителя товара
-class Factory(models.Model):
-    name = models.CharField('Название', max_length = 255)
-    inn = models.CharField('ИНН', max_length = 10)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Произодитель'
-        verbose_name_plural = 'Производители'
-        db_table = 'factories'
-
-
-# Модель для условий хранения
-class Storage_Conditions(models.Model):
-    name = models.CharField('Название', max_length = 255)
-    temperature = models.DecimalField('Температура', max_digits = 5, decimal_places = 1)
-    humidity = models.DecimalField('Влажность воздуха', max_digits = 3, decimal_places = 0)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Условия хранения'
-        verbose_name_plural = 'Условия хранения'
-        db_table = 'storage_conditions'
-
-
 # Модель для товара
 class Product(models.Model):
 
@@ -82,20 +53,16 @@ class Product(models.Model):
 
     name = models.CharField('Название продукта', max_length = 255)
     slug = models.SlugField(unique = True)
-    best_before = models.PositiveIntegerField('Срок годности')
-    export_date = models.DateTimeField('Дата производства')
     category = models.ForeignKey(Category, on_delete = models.SET_NULL, null = True)
     price = models.DecimalField('Цена товара', decimal_places = 2, max_digits = 8)
-    description = models.TextField('Описание товара')
-    factory = models.ForeignKey(Factory, on_delete = models.SET_NULL, null = True)
-    storage_conditions = models.ForeignKey(Storage_Conditions, on_delete = models.SET_NULL, null = True)
+    description = models.TextField('Описание товара', null=True, blank=True)
     image = models.ImageField()
 
     # Получение url для продукта
     def get_absolute_url(self):
         return reverse('shop:product', kwargs = {'slug' : self.slug})
 
-    def get_five_altest_products():
+    def get_five_altest_products(self=None):
         return Product.objects.all().order_by('-id')[:5]
 
     def __str__(self):
@@ -190,18 +157,6 @@ class Cart(models.Model):
         super().save(*args, **kwargs)
 
 
-# Модель для платежа
-class Payment(models.Model):
-    status = models.CharField('Состояние платежа', max_length = 100)
-    customer = models.ForeignKey(Customer, on_delete = models.CASCADE)
-    payment_date = models.DateField('Дата платежа')
-
-    class Meta:
-        verbose_name = 'Платеж'
-        verbose_name_plural = 'Платежи'
-        db_table = 'payments'
-
-
 # Модель для заказа
 class Order(models.Model):
 
@@ -222,77 +177,8 @@ class Order(models.Model):
     status = models.CharField(max_length = 255, verbose_name = 'Статус заказа', choices = STATUS_CHOISES, default = STATUS_NEW)
     cart = models.ForeignKey('Cart', null = True, blank = True, on_delete = models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete = models.CASCADE, related_name = 'related_orders')
-    payment = models.ForeignKey('Payment', null = True, blank = True, on_delete = models.CASCADE)
-    delivery = models.ForeignKey('Delivery', null = True, blank = True, on_delete = models.CASCADE)
-    address = models.CharField(max_length = 1024, blank = True, null = True)
 
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
         db_table = 'orders'
-
-
-# Модель для доставки
-class Delivery(models.Model):
-
-    price = models.DecimalField('Сумма доставки', default = 0, max_digits = 6, decimal_places = 2)
-    delivery_date = models.DateField('Дата доставки')
-    curier = models.ForeignKey('Curier', null = True, blank = True, on_delete = models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Доставка'
-        verbose_name_plural = 'Доставки'
-        db_table = 'deliveries'
-
-
-# Модель для курьера
-class Curier(models.Model):
-
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    birth_date = models.DateField('Дата рождения')
-    drivers_license = models.BooleanField()
-    salary = models.DecimalField('Сумма доставки', default = 0, max_digits = 6, decimal_places = 2)
-
-    class Meta:
-        verbose_name = 'Курьер'
-        verbose_name_plural = 'Курьеры'
-        db_table = 'curiers'
-
-
-# Модель для кладовщика
-class Storage_Worker(models.Model):
-
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    birth_date = models.DateField('Дата рождения')
-    salary = models.DecimalField('Сумма доставки', default = 0, max_digits = 6, decimal_places = 2)
-
-    class Meta:
-        verbose_name = 'Кладовщик'
-        verbose_name_plural = 'Кладовщики'
-        db_table = 'storage_workers'
-
-
-# Модель для склада
-class Storage(models.Model):
-
-    address = models.CharField('Адрес склада', max_length = 255)
-    square = models.DecimalField('Площадь склада', max_digits = 11, decimal_places = 2)
-    storage_worker = models.ForeignKey(Storage_Worker, on_delete = models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Склад'
-        verbose_name_plural = 'Склады'
-        db_table = 'storages'
-
-
-# Модель для складского помещения
-class StorageRoom(models.Model):
-
-    storage = models.ForeignKey(Storage, on_delete = models.CASCADE)
-    storage_conditions = models.ForeignKey(Storage_Conditions, on_delete = models.CASCADE)
-    square = models.DecimalField('Площадь складского помещения', max_digits = 11, decimal_places = 2)
-
-    class Meta:
-        verbose_name = 'Складское помещение'
-        verbose_name_plural = 'Складские помещения'
-        db_table = 'storage_rooms'

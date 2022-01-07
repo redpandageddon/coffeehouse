@@ -20,8 +20,6 @@ class ProductAdminModel(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Category)
 admin.site.register(Product, ProductAdminModel)
-admin.site.register(Factory)
-admin.site.register(Storage_Conditions)
 admin.site.register(Customer)
 admin.site.register(Cart_Product)
 admin.site.register(Cart)
