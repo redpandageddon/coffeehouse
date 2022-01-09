@@ -53,6 +53,7 @@
 
                 <a href="{% url 'shop:logout' %}">
                     <div class = "user">
+                        <span id="username">{{ request.user }}</span>
                         <img src="{% static 'shop/user.svg' %}" alt="user">
                         <span class="login">Выйти</span>
                     </div>
