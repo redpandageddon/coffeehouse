@@ -11,12 +11,13 @@ from .models import Category
 from .mixins import CartMixin, CategoryDetailMixin
 
 
-# Create your views here.
-
-# Представление для главной страницы
 class BaseView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/shop/login')
+
         latest_products = Product.get_five_altest_products()
         categories = Category.objects.get_categories_for_sidebar()
         context = {
@@ -25,6 +26,7 @@ class BaseView(CartMixin, View):
             'cart' : self.cart
         }
         return render(request, 'base.html', context)
+
 
 class ManagerBaseView(View):
 
@@ -44,7 +46,6 @@ class CustomerDetailView(DetailView):
     slug_url_kwarg = 'slug'
 
 
-# Представление для товара
 class ProductDetailView(CartMixin, CategoryDetailMixin, DetailView):
     
     CT_MODEL_MODEL_CLASS = {
