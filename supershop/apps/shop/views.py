@@ -9,6 +9,7 @@ from .models import Product, Customer, Cart_Product, User, UserProfile
 from .forms import LoginForm, RegistrationForm, OrderForm
 from .models import Category
 from .mixins import CartMixin, CategoryDetailMixin
+from .services.product_services import get_to_sell_products
 
 
 class BaseView(CartMixin, View):
@@ -18,7 +19,7 @@ class BaseView(CartMixin, View):
         if not request.user.is_authenticated:
             return HttpResponseRedirect('/shop/login')
 
-        latest_products = Product.get_five_altest_products()
+        latest_products = get_to_sell_products()
         categories = Category.objects.get_categories_for_sidebar()
         context = {
             'categories' : categories,

@@ -40,11 +40,11 @@
                         <div class="btn-bag">
                             {% if not request.user.is_authenticated %}
                             <a href="{% url 'shop:login' %}">
-                                <span class="btn-add__bag">Добавить в корзину</span>
+                                <span class="btn-add__bag">Добавить в заказ</span>
                             </a>
                             {% else %}
                             <a href="{% url 'shop:add_to_cart' ct_model=product.get_model_name slug=product.slug %}">
-                                <span class="btn-add__bag">Добавить в корзину</span>
+                                <span class="btn-add__bag">Добавить в заказ</span>
                             </a>
                             {% endif %}
                         </div>

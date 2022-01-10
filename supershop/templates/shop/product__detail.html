@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Магазинчик | {{ product.name }}
+    {{ product.name }}
 {% endblock title %}
 
 {% block content %}
@@ -31,10 +31,10 @@
                     </ul>
                     <div class="btn-container">
                         <div class="items-count">
-                            <span>тут можно сделать штуку чтобы выбирали количество</span>
+                            <span></span>
                         </div>
                         <div class="btn-bag">
-                            <a href="{% url 'shop:add_to_cart' ct_model=ct_model slug=product.slug %}"><span class="btn-add__bag">Добавить в корзину</span></a>
+                            <a href="{% url 'shop:add_to_cart' ct_model=ct_model slug=product.slug %}"><span class="btn-add__bag">Добавить в заказ</span></a>
                         </div>
 
                     </div>

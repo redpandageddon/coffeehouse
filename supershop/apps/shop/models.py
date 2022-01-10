@@ -51,12 +51,13 @@ class Product(models.Model):
     max_resolution = (1000, 1000)
     max_image_size = 3145728
 
-    name = models.CharField('Название продукта', max_length = 255)
-    slug = models.SlugField(unique = True)
-    category = models.ForeignKey(Category, on_delete = models.SET_NULL, null = True)
-    price = models.DecimalField('Цена товара', decimal_places = 2, max_digits = 8)
+    name = models.CharField('Название продукта', max_length=255)
+    slug = models.SlugField(unique=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    price = models.DecimalField('Цена товара', decimal_places=2, max_digits=8)
     description = models.TextField('Описание товара', null=True, blank=True)
     image = models.ImageField()
+    to_sell = models.BooleanField('Продвигать', default=False)
 
     # Получение url для продукта
     def get_absolute_url(self):
