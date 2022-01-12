@@ -244,7 +244,6 @@ class MakeOrderView(CartMixin, View):
         if form.is_valid():
             new_order = form.save(commit = False)
             new_order.customer = customer
-            new_order.address = form.cleaned_data['address']
             new_order.order_date = form.cleaned_data['order_date']
             new_order.save()
             self.cart.in_order = True
