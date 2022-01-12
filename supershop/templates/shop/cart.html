@@ -6,7 +6,7 @@
 {% endblock style %}
 
 {% block title %}
-    Магазинчик | Корзина
+    Корзина
 {% endblock title %}
 
 
@@ -15,7 +15,7 @@
         <div class="basket-container">
             <div class="basket-left--side">
                 <div class="basket-text">
-                    <span class="text">Ваша корзина {% if not cart.products.count %} пуста {% endif %}</span>
+                    <span class="text">Текущий заказ {% if not cart.products.count %} пустой {% endif %}</span>
                 </div>
                 <div>
                     {% if messages %}
