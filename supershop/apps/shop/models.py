@@ -56,7 +56,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     price = models.DecimalField('Цена товара', decimal_places=2, max_digits=8)
     description = models.TextField('Описание товара', null=True, blank=True)
-    image = models.ImageField()
+    image = models.ImageField(null=True)
     to_sell = models.BooleanField('Продвигать', default=False)
 
     # Получение url для продукта

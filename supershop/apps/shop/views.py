@@ -10,6 +10,9 @@ from .forms import LoginForm, RegistrationForm, OrderForm
 from .models import Category
 from .mixins import CartMixin, CategoryDetailMixin
 from .services.product_services import get_to_sell_products
+from rest_framework import viewsets
+from rest_framework import permissions
+from .serializers import ProductSerializer, CategorySerializer
 
 
 class BaseView(CartMixin, View):
@@ -186,7 +189,6 @@ class AddToCartView(CartMixin, View):
         return HttpResponseRedirect('/shop/cart/')
 
 
-# 
 class DeleteFromCartView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
@@ -254,3 +256,13 @@ class MakeOrderView(CartMixin, View):
             messages.add_message(request, messages.INFO, 'Спасибо за заказ')
             return HttpResponseRedirect('/shop/')
         return HttpResponseRedirect('/shop/checkout/')
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

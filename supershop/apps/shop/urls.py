@@ -1,6 +1,13 @@
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from . import views
 from django.contrib.auth.views import LogoutView
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+router.register(r'products', views.ProductViewSet)
+router.register(r'categories', views.CategoryViewSet)
+
 
 app_name = 'shop'
 urlpatterns = [
@@ -18,5 +25,6 @@ urlpatterns = [
     path('checkout/', views.CheckoutView.as_view(), name = 'checkout'),
     path('make_order/', views.MakeOrderView.as_view(), name = 'make_order'),
     path('manager/', views.ManagerBaseView.as_view(), name='manager'),
-    re_path(r'^customers/customer/(?P<pk>[\w\d\-\_]+)/$', views.CustomerDetailView.as_view(), name = 'customer')
+    re_path(r'^customers/customer/(?P<pk>[\w\d\-\_]+)/$', views.CustomerDetailView.as_view(), name = 'customer'),
+    path('api/', include(router.urls))
 ]
