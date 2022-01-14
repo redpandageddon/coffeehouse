@@ -17,15 +17,6 @@
                 <div class="basket-text">
                     <span class="text">Текущий заказ {% if not cart.products.count %} пустой {% endif %}</span>
                 </div>
-                <div>
-                    {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
 
                 {% if cart.products.count %}
                 <div class="basket-items__container">
@@ -38,9 +29,6 @@
                                     <div class="item-info__container">
                                         <div class="item-info">
                                             <span class="item-name">{{ item.product.name }}</span>
-                                            <span class="item-count--text">Количество:
-                                                <span class="item-count">{{ item.amount }}</span>
-                                            </span>
                                             <div class="count__container">
                                                 <!-- <button class="subtract">-</button>
                                                 <span class="current-count--value">1</span>

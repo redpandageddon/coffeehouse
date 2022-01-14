@@ -17,15 +17,6 @@
             <div class="basket-text">
                 <span class="text">Ваш заказ</span>
             </div>
-            <div>
-                {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </div>
             <div class="basket-items__container">
                 <ul class="basket-list">
 
