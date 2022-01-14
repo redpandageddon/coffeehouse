@@ -30,9 +30,6 @@
                                         <div class="item-info">
                                             <span class="item-name">{{ item.product.name }}</span>
                                             <div class="count__container">
-                                                <!-- <button class="subtract">-</button>
-                                                <span class="current-count--value">1</span>
-                                                <button class="add">+</button> -->
                                             </div>
                                         </div>
                                         <form action="{% url 'shop:change_amount' ct_model=item.product.get_model_name slug=item.product.slug %}" method="post">
@@ -64,13 +61,6 @@
                     </span>
                 </div>
                 <div class="total-amount">
-                    <span class="total-item__amount">
-                        Товары,
-                        <span class="total-amount__value">
-                            {{ cart.product_amount }}
-                        </span>
-                        шт.
-                    </span>
                     <div class="container-total--item">
                         <span class="total-item__value">
                             {{ cart.final_price }}

@@ -242,16 +242,15 @@ class MakeOrderView(CartMixin, View):
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         form = OrderForm(request.POST or None)
-        customer = Customer.objects.get(user = request.user)
         if form.is_valid():
             new_order = form.save(commit = False)
-            new_order.customer = customer
-            new_order.order_date = form.cleaned_data['order_date']
+            new_order.customer = form.cleaned_data['customer']
             new_order.save()
             self.cart.in_order = True
             self.cart.save()
             new_order.cart = self.cart
             new_order.save()
+            customer = Customer.objects.get(user=new_order.customer.user)
             customer.orders.add(new_order)
             messages.add_message(request, messages.INFO, 'Спасибо за заказ')
             return HttpResponseRedirect('/shop/')
