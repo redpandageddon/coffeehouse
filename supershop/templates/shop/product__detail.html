@@ -46,11 +46,7 @@
             <div class="product-about">
                 <ul class="product-list__footer">
                     <li class="product-list__item"><span class="product-description">{{ product.description }}</span></li>
-                    <li class="product-list__item"><span class="product-list__name">Срок годности</span><span class="product-lifedate product-list__value">{{ product.best_before }}</span></li>
-                    <li class="product-list__item"><span class="product-list__name">Дата производства</span><span class="product-date product-list__value">{{  product.export_date.date }}</span></li>
                     <li class="product-list__item"><span class="product-list__name">Категория </span><span class="product-category product-list__value">{{ product.category.name }}</span></li>
-                    <li class="product-list__item"><span class="product-list__name">Производитель </span><span class="product-manufacturer product-list__value">{{ product.factory.name }}</span></li>
-                    <li class="product-list__item"><span class="product-list__name">Условие хранения </span><span class="product-storage product-list__value">{{ product.storage_conditions.name }}</span></li>
                 </ul>
             </div>
         </div>
